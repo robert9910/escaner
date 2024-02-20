@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="register.js" defer></script>
+</head>
+<body>
+  <main>
+    <div class="form-container">
+      <h1>Crear cuenta</h1>
+      <form id="register-form">
+        <label for="user" class="sr-only">Usuario</label>
+        <input type="text" name="user" id="user" placeholder="Nombre de usuario" required>
+        <label for="password" class="sr-only">Contraseña</label>
+        <input type="password" name="password" id="password" placeholder="Contraseña" required>
+        <label for="role" class="sr-only">Selecciona tu rol</label>
+        <select name="role" id="role">
+          <option value="conductor">Conductor</option>
+          <option value="gerente">Gerente</option>
+        </select>
+        <button type="submit">Registrarse</button>
+        <p class="error escondido">Error al registrarse</p>
+      </form>
+      <p>¿Ya estás registrado? - <a href="/">Iniciar sesión</a></p>
+    </div>
+  </main>
+</body>
+</html>

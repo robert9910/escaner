@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerente</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <div class="form-container">
+      <h1>Información Escaneada</h1>
+      <div id="datosEscaneados"></div>
+      <button id="cerrarSesionBtn">Cerrar Sesión</button>
+    </div>
+  </main>
+  <script>
+    // Función para mostrar los datos recibidos en la página
+    function mostrarDatosRecibidos(datos) {
+      const datosEscaneadosDiv = document.getElementById("datosEscaneados");
+      const nuevoElemento = document.createElement('div');
+      nuevoElemento.innerHTML = `<p><strong>Código:</strong> ${datos.codigo}</p><p><strong>Hora:</strong> ${datos.hora}</p>`;
+      datosEscaneadosDiv.appendChild(nuevoElemento);
+    }
+
+    // Función para cerrar sesión
+    function cerrarSesion() {
+      document.cookie = 'jwt=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      document.location.href = "/";
+    }
+
+    // Asignar evento al botón de cerrar sesión
+    document.getElementById("cerrarSesionBtn").addEventListener("click", cerrarSesion);
+
+    // Realizar solicitud al servidor para obtener los datos
+    function obtenerDatos() {
+      fetch('/datos', {
+        method: 'POST', // Método POST
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('No se pudo obtener los datos del servidor.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        mostrarDatosRecibidos(data); // Llama a la función para mostrar los datos recibidos
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+    // Llamar a la función para obtener los datos cuando la página se carga
+    window.addEventListener("load", obtenerDatos);
+  </script>
+</body>
+</html>
